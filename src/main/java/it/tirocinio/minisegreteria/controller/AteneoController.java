@@ -1,0 +1,57 @@
+package it.tirocinio.minisegreteria.controller;
+
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import it.tirocinio.minisegreteria.model.Ateneo;
+import it.tirocinio.minisegreteria.response.ApiResponse;
+import it.tirocinio.minisegreteria.service.AteneoService;
+
+@RestController
+@RequestMapping("/api/atenei")
+public class AteneoController {
+	private AteneoService ateneoService;
+	
+	public AteneoController(AteneoService ateneoService) {
+		super();
+		this.ateneoService = ateneoService;
+	}
+	@GetMapping("")
+    public ResponseEntity<ApiResponse<List<Ateneo>>> trovaTuttiAtenei() {
+        List<Ateneo> ateneo = ateneoService.trovaTuttiAtenei();
+        ApiResponse<List<Ateneo>> response = new ApiResponse<>(ateneo);
+        return ResponseEntity.ok(response);
+	}
+	
+	
+	
+	@PostMapping("")
+    public ResponseEntity<ApiResponse<Ateneo>> creaAteneo(@RequestBody Ateneo ateneo) {
+        Ateneo nuovoAteneo = ateneoService.createAteneo(ateneo);
+        
+        ApiResponse<Ateneo> response = new ApiResponse<>(nuovoAteneo);
+        response.setId(nuovoAteneo.getAteneoId());
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+	
+	
+	
+	
+	
+	@GetMapping("/{ateneoId}")
+	public ResponseEntity<ApiResponse<Ateneo>> dettaglioAteneo(@PathVariable Long id) {
+	    Ateneo ateneo = ateneoService.cercaAteneo(id);
+	    ApiResponse<Ateneo> response = new ApiResponse<>(ateneo);
+	    response.setId(id); 
+	    return ResponseEntity.ok(response);
+	}
+
+}

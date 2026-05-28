@@ -1,0 +1,80 @@
+package it.tirocinio.minisegreteria.controller;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import it.tirocinio.minisegreteria.dto.StudenteDTO;
+import it.tirocinio.minisegreteria.model.Iscrizione;
+import it.tirocinio.minisegreteria.model.Recapito;
+import it.tirocinio.minisegreteria.model.Studente;
+import it.tirocinio.minisegreteria.response.ApiResponse;
+import it.tirocinio.minisegreteria.service.IscrizioneService;
+import it.tirocinio.minisegreteria.service.StudenteService;
+
+
+@RestController
+@RequestMapping("api/studenti")
+public class StudenteController {
+	private StudenteService studenteService;
+	private IscrizioneService iscrizioneService;
+
+	public StudenteController(StudenteService studenteService, IscrizioneService iscrizioneService) {
+		super();
+		this.studenteService = studenteService;
+		this.iscrizioneService = iscrizioneService;
+	}
+	
+	@GetMapping("")
+	public ResponseEntity<ApiResponse<List<StudenteDTO>>> listaStudenti() {
+	    List<StudenteDTO> studenti = studenteService.trovaStudenti();
+	    ApiResponse<List<StudenteDTO>> response = new ApiResponse<>(studenti);
+	    return ResponseEntity.ok(response);
+	}
+	
+	@PostMapping("") 
+	public ResponseEntity<ApiResponse<Studente>> creaStudente(@RequestBody Studente studente) {
+		Studente nuovoStudente = studenteService.createStudente(studente);
+		ApiResponse<Studente> response = new ApiResponse<>(nuovoStudente);
+		response.setId(nuovoStudente.getIdStudente());
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/{idStudente}")
+	public ResponseEntity<ApiResponse<Studente>> dettaglioStudente(@PathVariable Long idStudente) {
+		Studente studente = studenteService.cercaStudente(idStudente);
+		ApiResponse<Studente> response = new ApiResponse<>(studente);
+        response.setId(idStudente);
+        return ResponseEntity.ok(response);
+    }
+	
+	
+	@GetMapping("/search")
+	public ResponseEntity<ApiResponse<List<Studente>>> ricercaStudente(
+		@RequestParam(value="id", required=false) Long id,
+		@RequestParam(value="matricola", required=false) Integer matricola) {
+	    List<Studente> studenti = studenteService.ricercaStudente(id, matricola);
+	    if(studenti.isEmpty()) {
+	    	throw new NoSuchElementException("nessuno studente trovato con i filtri specificati. ");
+	    }
+	    ApiResponse<List<Studente>> response = new ApiResponse<>(studenti);
+	    return ResponseEntity.ok(response);
+	}
+	
+	@GetMapping("/{idStudente}/iscrizioni")
+	public ResponseEntity<ApiResponse<List<Iscrizione>>> studentiIscrittiACorso(@PathVariable Long idStudente) {
+		List<Iscrizione> iscrizioni = iscrizioneService.trovaIscrizioneStudente(idStudente);
+		ApiResponse<List<Iscrizione>> response = new ApiResponse<>(iscrizioni);
+		return ResponseEntity.ok(response);
+	}
+
+}
