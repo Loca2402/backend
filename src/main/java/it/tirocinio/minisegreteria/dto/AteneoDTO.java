@@ -21,7 +21,7 @@ public class AteneoDTO {
 	public void setAteneoId(Long ateneoId) {
 		this.ateneoId = ateneoId;
 	}
-	public int getCodice() {
+	public Integer getCodice() {
 		return codice;
 	}
 	public void setCodice(Integer codice) {

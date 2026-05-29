@@ -2,6 +2,8 @@ package it.tirocinio.minisegreteria.dto;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+@JsonPropertyOrder({"nome","idCorso","codice","nome","annoAccademico","tipoTitolo","dipartimento", "ateneo"})
 public class CorsoDTO {
     
     private Long idCorso;
@@ -10,11 +12,19 @@ public class CorsoDTO {
     private String annoAccademico;
     private String tipoTitolo;
     
+    private DipartimentoDTO dipartimento;
     private AteneoDTO ateneo;
     
-    
 
-    public AteneoDTO getAteneo() {
+    public DipartimentoDTO getDipartimento() {
+		return dipartimento;
+	}
+
+	public void setDipartimento(DipartimentoDTO dipartimento) {
+		this.dipartimento = dipartimento;
+	}
+
+	public AteneoDTO getAteneo() {
 		return ateneo;
 	}
 
