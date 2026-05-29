@@ -9,11 +9,21 @@ public class CorsoDTO {
     private String nome;
     private String annoAccademico;
     private String tipoTitolo;
+    
+    private AteneoDTO ateneo;
+    
+    
 
-    // Costruttore vuoto
+    public AteneoDTO getAteneo() {
+		return ateneo;
+	}
+
+	public void setAteneo(AteneoDTO ateneo) {
+		this.ateneo = ateneo;
+	}
+
     public CorsoDTO() {}
 
-    // Costruttore completo
     public CorsoDTO(Long idCorso, Integer codice, String nome, String annoAccademico, String tipoTitolo) {
         this.idCorso = idCorso;
         this.codice = codice;
@@ -22,7 +32,6 @@ public class CorsoDTO {
         this.tipoTitolo = tipoTitolo;
     }
 
-    // Getter e Setter per il Corso
     public Long getIdCorso() { return idCorso; }
     public void setIdCorso(Long idCorso) { this.idCorso = idCorso; }
     public Integer getCodice() { return codice; }
