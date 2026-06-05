@@ -13,7 +13,9 @@ public class DipartimentoMapper {
         return new DipartimentoDTO(
             dipartimento.getId(),
             dipartimento.getCodice(),
-            dipartimento.getNome()
+            dipartimento.getNome(),
+            dipartimento.getAteneo().getAteneoId(),
+            dipartimento.getAteneo().getNome()
         );
     }
 }

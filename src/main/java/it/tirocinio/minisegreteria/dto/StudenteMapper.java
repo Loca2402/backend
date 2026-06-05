@@ -11,6 +11,7 @@ public class StudenteMapper {
         }
 
         return new StudenteDTO(
+        		studente.getIdStudente(),
             studente.getMatricola(),
             studente.getNome(),
             studente.getCognome(),

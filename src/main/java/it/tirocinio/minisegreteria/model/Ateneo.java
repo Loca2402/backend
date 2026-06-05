@@ -26,7 +26,7 @@ public class Ateneo {
     private String citta;
     
     @OneToMany(mappedBy = "ateneo", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("ateneo")
+    @JsonIgnoreProperties({"ateneo", "corsi"})
     private List<Dipartimento> dipartimenti;
 
 
@@ -70,5 +70,15 @@ public class Ateneo {
     public void setCodice(Integer codice) {
         this.codice = codice;
     }
+
+	public List<Dipartimento> getDipartimenti() {
+		return dipartimenti;
+	}
+
+	public void setDipartimenti(List<Dipartimento> dipartimenti) {
+		this.dipartimenti = dipartimenti;
+	}
+    
+    
 }
 

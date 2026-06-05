@@ -24,7 +24,7 @@ public class Dipartimento {
     private Ateneo ateneo;
     
     @OneToMany(mappedBy = "dipartimento", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("dipartimento")
+    @JsonIgnoreProperties({"dipartimento", "corsi", "studenti"})
     private List<Corso> corsi;
 
     public Dipartimento() {

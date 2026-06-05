@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import it.tirocinio.minisegreteria.service.AteneoService;
 
 @RestController
 @RequestMapping("/api/atenei")
+@CrossOrigin(origins="http://localhost:4200")
 public class AteneoController {
 	private AteneoService ateneoService;
 	
@@ -47,10 +49,10 @@ public class AteneoController {
 	
 	
 	@GetMapping("/{ateneoId}")
-	public ResponseEntity<ApiResponse<Ateneo>> dettaglioAteneo(@PathVariable Long id) {
-	    Ateneo ateneo = ateneoService.cercaAteneo(id);
+	public ResponseEntity<ApiResponse<Ateneo>> dettaglioAteneo(@PathVariable Long ateneoId) {
+	    Ateneo ateneo = ateneoService.cercaAteneo(ateneoId);
 	    ApiResponse<Ateneo> response = new ApiResponse<>(ateneo);
-	    response.setId(id); 
+	    response.setId(ateneoId); 
 	    return ResponseEntity.ok(response);
 	}
 
