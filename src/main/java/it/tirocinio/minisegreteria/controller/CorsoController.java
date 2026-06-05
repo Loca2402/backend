@@ -46,12 +46,14 @@ public class CorsoController {
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<ApiResponse<Corso>> creaCorso(@RequestBody Corso corso) {
-		Corso nuovoCorso = corsoService.createCorso(corso);
-		ApiResponse<Corso> response = new ApiResponse<>(nuovoCorso);
-		response.setId(nuovoCorso.getIdCorso());
-		return new ResponseEntity<>(response, HttpStatus.CREATED);
+	public ResponseEntity<ApiResponse<Corso>> creaCorso(@RequestBody CorsoDTO corsoDTO) {
+	    	    Corso nuovoCorso = corsoService.createCorso(corsoDTO); 
+	    
+	    ApiResponse<Corso> response = new ApiResponse<>(nuovoCorso);
+	    response.setId(nuovoCorso.getIdCorso());
+	    return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
+	
 	
 	@GetMapping("/{idCorso}")
 	public ResponseEntity<ApiResponse<CorsoDTO>> dettaglioCorso(@PathVariable Long idCorso) {

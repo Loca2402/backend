@@ -40,10 +40,14 @@ public class DipartimentoService {
    
 	
 	public Dipartimento createDipartimento(Dipartimento nuovoDipartimento) {
-	   boolean esistedip = dipartimentoRepository.existsByNome(nuovoDipartimento.getNome());
+	   boolean esistedip = dipartimentoRepository.existsByNomeDipartimento(nuovoDipartimento.getNome());
 	   if(esistedip) {
 		   throw new IllegalArgumentException("Questo dipartimento già esiste");
 	   }
+	   Long ateneoId = nuovoDipartimento.getAteneo().getAteneoId();
+	   Ateneo ateneo = ateneoRepository.findById(ateneoId) 
+			   .orElseThrow(()->  new NoSuchElementException("Ateneo non trovato con ID " + ateneoId));
+	   nuovoDipartimento.setAteneo(ateneo);
 	   return dipartimentoRepository.save(nuovoDipartimento);
    }
    

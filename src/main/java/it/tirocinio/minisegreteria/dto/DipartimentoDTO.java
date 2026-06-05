@@ -1,40 +1,40 @@
 package it.tirocinio.minisegreteria.dto;
 
 public class DipartimentoDTO {
-	private Long id;
-	private Integer codice;
-	private String nome;
+	private Long dipartimentoId;
+	private Integer codiceDipartimento;
+	private String nomeDipartimento;
 	private Long ateneoId;
 	private String nomeAteneo;
 
-	public DipartimentoDTO(Long id, Integer codice, String nome, Long ateneoId, String nomeAteneo) {
+	public DipartimentoDTO(Long dipartimentoId, Integer codice, String nomeDipartimento, Long ateneoId, String nomeAteneo) {
 		super();
-		this.id = id;
-		this.codice = codice;
-		this.nome = nome;
+		this.dipartimentoId = dipartimentoId;
+		this.codiceDipartimento = codiceDipartimento;
+		this.nomeDipartimento = nomeDipartimento;
 		this.ateneoId = ateneoId;
 		this.nomeAteneo = nomeAteneo;
 	}
 	public DipartimentoDTO() {
 		super();
 	}
-	public Long getId() {
-		return id;
+	public Long getDipartimentoId() {
+		return dipartimentoId;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setDipartimentoId(Long dipartimentoId) {
+		this.dipartimentoId = dipartimentoId;
 	}
-	public Integer getCodice() {
-		return codice;
+	public Integer getCodiceDipartimento() {
+		return codiceDipartimento;
 	}
-	public void setCodice(Integer codice) {
-		this.codice = codice;
+	public void setCodiceDipartimento(Integer codice) {
+		this.codiceDipartimento = codiceDipartimento;
 	}
-	public String getNome() {
-		return nome;
+	public String getNomeDipartimento() {
+		return nomeDipartimento;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNomeDipartimento(String nomeDipartimento) {
+		this.nomeDipartimento = nomeDipartimento;
 	}
 	public Long getAteneoId() {
 		return ateneoId;

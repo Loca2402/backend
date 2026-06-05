@@ -12,36 +12,35 @@ public class CorsoMapper {
             return null;
         }
         
-        CorsoDTO dto = new CorsoDTO();
-        dto.setIdCorso(corso.getIdCorso());
-        dto.setCodice(corso.getCodice());
-        dto.setNome(corso.getNome());
-        dto.setAnnoAccademico(corso.getAnnoAccademico());
-        dto.setTipoTitolo(corso.getTipoTitolo());
-        
-        if(corso.getDipartimento() != null) {
-        		Dipartimento dipartimento = corso.getDipartimento();
-        		
-        		DipartimentoDTO dipDTO = new DipartimentoDTO();
-        		dipDTO.setId(dipartimento.getId());
-        		dipDTO.setCodice(dipartimento.getCodice());
-        		dipDTO.setNome(dipartimento.getNome());
-        		
-        		dto.setDipartimento(dipDTO);
-	       
-        		if(dipartimento.getAteneo() != null) {
-        			Ateneo ateneo = dipartimento.getAteneo();
-        			
-        			AteneoDTO ateneoDTO = new AteneoDTO();
-        			ateneoDTO.setNome(ateneo.getNome());
-        			ateneoDTO.setAteneoId(ateneo.getAteneoId());
-        			ateneoDTO.setCodice(ateneo.getCodice()); 
-        			ateneoDTO.setCitta(ateneo.getCitta());
-        			
-        			dto.setAteneo(ateneoDTO);
-        		}
+        return new CorsoDTO(
+                corso.getIdCorso(),
+                corso.getCodice(),
+                corso.getNome(),
+                corso.getAnnoAccademico(),
+                corso.getTipoTitolo(),
+                corso.getDipartimento().getCodice(),
+                corso.getDipartimento().getNome()
+//                corso.getDipartimento().getAteneo().getAteneoId(),
+//                corso.getDipartimento().getAteneo().getNome()
+                );
+                
+        }
+    
+    public static Corso toModel(CorsoDTO dto) {
+        if (dto == null) {
+            return null;
         }
         
-        return dto;
+        Corso corso = new Corso();
+        corso.setIdCorso(dto.getIdCorso());
+        corso.setCodice(dto.getCodice());
+        corso.setNome(dto.getNome());
+        corso.setAnnoAccademico(dto.getAnnoAccademico());
+        corso.setTipoTitolo(dto.getTipoTitolo());
+        
+        // Nota: Il dipartimento NON lo settiamo qui perché lo cerchi 
+        // e lo associ direttamente nel Service tramite il codice!
+        
+        return corso;
     }
 }

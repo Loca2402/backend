@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import it.tirocinio.minisegreteria.dto.CorsoDTO;
 import it.tirocinio.minisegreteria.dto.CorsoMapper;
 import it.tirocinio.minisegreteria.model.Corso;
+import it.tirocinio.minisegreteria.model.Dipartimento;
 import it.tirocinio.minisegreteria.model.Iscrizione;
 import it.tirocinio.minisegreteria.repository.CorsoRepository;
 import it.tirocinio.minisegreteria.repository.DipartimentoRepository;
@@ -35,12 +36,19 @@ public class CorsoService {
 	            .toList();
 	}
 	
-	public Corso createCorso(Corso nuovoCorso) {
-		 boolean esistecorso = corsoRepository.existsByNome(nuovoCorso.getNome());
-		   if(esistecorso) {
-			   throw new IllegalArgumentException("Questo corso già è presente");
-		   }
-		   return corsoRepository.save(nuovoCorso);
+	public Corso createCorso(CorsoDTO nuovoCorso) {
+	    // 1. Usiamo il TUO mapper per convertire il DTO in un oggetto Corso (Model)
+	    Corso corso = CorsoMapper.toModel(nuovoCorso);
+
+	    // 2. Cerchiamo sul database il dipartimento reale usando il codice mandato da Angular
+	    Dipartimento dipartimentoReale = dipartimentoRepository.findByCodice(nuovoCorso.getCodiceDipartimento())
+	            .orElseThrow(() -> new NoSuchElementException("Codice dipartimento errato: " + nuovoCorso.getCodiceDipartimento()));
+
+	    // 3. Colleghiamo il dipartimento trovato al corso
+	    corso.setDipartimento(dipartimentoReale);
+
+	    // 4. Salviamo l'oggetto nel database
+	    return corsoRepository.save(corso);
 	}
 	
 	public Corso cercaCorso(Long idCorso) {

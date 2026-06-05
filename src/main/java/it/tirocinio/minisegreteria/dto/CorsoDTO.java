@@ -12,34 +12,56 @@ public class CorsoDTO {
     private String annoAccademico;
     private String tipoTitolo;
     
-    private DipartimentoDTO dipartimento;
-    private AteneoDTO ateneo;
+    private String nomeDipartimento;
+	private Integer codiceDipartimento;
+//    private Long ateneoId;
+//    private String nomeAteneo;
     
 
-    public DipartimentoDTO getDipartimento() {
-		return dipartimento;
+    public Integer getCodiceDipartimento() {
+		return codiceDipartimento;
 	}
 
-	public void setDipartimento(DipartimentoDTO dipartimento) {
-		this.dipartimento = dipartimento;
+	public void setCodiceDipartimento(Integer codiceDipartimento) {
+		this.codiceDipartimento = codiceDipartimento;
 	}
 
-	public AteneoDTO getAteneo() {
-		return ateneo;
+//	public Long getAteneoId() {
+//		return ateneoId;
+//	}
+//
+//	public void setAteneoId(Long ateneoId) {
+//		this.ateneoId = ateneoId;
+//	}
+	
+	
+
+    public String getNomeDipartimento() {
+		return nomeDipartimento;
 	}
 
-	public void setAteneo(AteneoDTO ateneo) {
-		this.ateneo = ateneo;
+	public void setNomeDipartimento(String nomeDipartimento) {
+		this.nomeDipartimento = nomeDipartimento;
 	}
 
-    public CorsoDTO() {}
+//	public String getNomeAteneo() {
+//		return nomeAteneo;
+//	}
+//
+//	public void setNomeAteneo(String nomeAteneo) {
+//		this.nomeAteneo = nomeAteneo;
+//	}
 
-    public CorsoDTO(Long idCorso, Integer codice, String nome, String annoAccademico, String tipoTitolo) {
+	public CorsoDTO() {}
+
+    public CorsoDTO(Long idCorso, Integer codice, String nome, String annoAccademico, String tipoTitolo,
+    					Integer codiceDipartimento, String nomeDipartimento) {
         this.idCorso = idCorso;
         this.codice = codice;
         this.nome = nome;
         this.annoAccademico = annoAccademico;
         this.tipoTitolo = tipoTitolo;
+        this.codiceDipartimento = codiceDipartimento;
     }
 
     public Long getIdCorso() { return idCorso; }
@@ -51,7 +73,7 @@ public class CorsoDTO {
     public String getAnnoAccademico() { return annoAccademico; }
     public void setAnnoAccademico(String annoAccademico) { this.annoAccademico = annoAccademico; }
     public String getTipoTitolo() { return tipoTitolo; }
-    public void setTipoTitolo(String tipoTitolo) { this.tipoTitolo = tipoTitolo; }
+    public void setTipoTitolo(String tipoTitolo) { this.tipoTitolo = tipoTitolo; }    
   
     
 }

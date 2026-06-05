@@ -42,9 +42,16 @@ public class DipartimentoController {
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<ApiResponse<Dipartimento>> creaDipartimento(@RequestBody Dipartimento dipartimento ) {
+	public ResponseEntity<ApiResponse<DipartimentoDTO>> creaDipartimento(@RequestBody Dipartimento dipartimento ) {
 		Dipartimento nuovoDipartimento = dipartimentoService.createDipartimento(dipartimento);
-		ApiResponse<Dipartimento> response = new ApiResponse<>(nuovoDipartimento);
+		DipartimentoDTO dto = new DipartimentoDTO(
+				nuovoDipartimento.getId(),
+				nuovoDipartimento.getCodice(),
+				nuovoDipartimento.getNome(),
+				nuovoDipartimento.getAteneo().getAteneoId(),
+				nuovoDipartimento.getAteneo().getNome()
+				);
+		ApiResponse<DipartimentoDTO> response = new ApiResponse<>(dto);
 		response.setId(nuovoDipartimento.getId());
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
