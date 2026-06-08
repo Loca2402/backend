@@ -9,7 +9,7 @@ import it.tirocinio.minisegreteria.model.Dipartimento;
 import jakarta.persistence.*;
 @Repository
 public interface DipartimentoRepository extends JpaRepository<Dipartimento,Long>{
-	boolean existsByNomeDipartimento(String nomeDipartimento);
-	List<Dipartimento> findByAteneoId(Long ateneoId);
+	boolean existsByNome(String nome);
+	List<Dipartimento> findByAteneoAteneoId(Long ateneoId);
 	Optional<Dipartimento> findByCodice(Integer codice);
 }

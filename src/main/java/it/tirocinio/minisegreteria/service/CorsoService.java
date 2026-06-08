@@ -37,17 +37,11 @@ public class CorsoService {
 	}
 	
 	public Corso createCorso(CorsoDTO nuovoCorso) {
-	    // 1. Usiamo il TUO mapper per convertire il DTO in un oggetto Corso (Model)
 	    Corso corso = CorsoMapper.toModel(nuovoCorso);
-
-	    // 2. Cerchiamo sul database il dipartimento reale usando il codice mandato da Angular
 	    Dipartimento dipartimentoReale = dipartimentoRepository.findByCodice(nuovoCorso.getCodiceDipartimento())
-	            .orElseThrow(() -> new NoSuchElementException("Codice dipartimento errato: " + nuovoCorso.getCodiceDipartimento()));
-
-	    // 3. Colleghiamo il dipartimento trovato al corso
+	    .orElseThrow(() -> new NoSuchElementException("Codice dipartimento errato: " + nuovoCorso.getCodiceDipartimento()));
 	    corso.setDipartimento(dipartimentoReale);
 
-	    // 4. Salviamo l'oggetto nel database
 	    return corsoRepository.save(corso);
 	}
 	

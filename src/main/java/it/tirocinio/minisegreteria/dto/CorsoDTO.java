@@ -62,7 +62,8 @@ public class CorsoDTO {
         this.annoAccademico = annoAccademico;
         this.tipoTitolo = tipoTitolo;
         this.codiceDipartimento = codiceDipartimento;
-    }
+        this.nomeDipartimento = nomeDipartimento;
+        }
 
     public Long getIdCorso() { return idCorso; }
     public void setIdCorso(Long idCorso) { this.idCorso = idCorso; }

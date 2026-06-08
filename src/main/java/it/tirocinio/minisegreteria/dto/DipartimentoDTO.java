@@ -2,16 +2,16 @@ package it.tirocinio.minisegreteria.dto;
 
 public class DipartimentoDTO {
 	private Long dipartimentoId;
-	private Integer codiceDipartimento;
-	private String nomeDipartimento;
+	private Integer codice;
+	private String nome;
 	private Long ateneoId;
 	private String nomeAteneo;
 
-	public DipartimentoDTO(Long dipartimentoId, Integer codice, String nomeDipartimento, Long ateneoId, String nomeAteneo) {
+	public DipartimentoDTO(Long dipartimentoId, Integer codice, String nome, Long ateneoId, String nomeAteneo) {
 		super();
 		this.dipartimentoId = dipartimentoId;
-		this.codiceDipartimento = codiceDipartimento;
-		this.nomeDipartimento = nomeDipartimento;
+		this.codice = codice;
+		this.nome = nome;
 		this.ateneoId = ateneoId;
 		this.nomeAteneo = nomeAteneo;
 	}
@@ -24,17 +24,17 @@ public class DipartimentoDTO {
 	public void setDipartimentoId(Long dipartimentoId) {
 		this.dipartimentoId = dipartimentoId;
 	}
-	public Integer getCodiceDipartimento() {
-		return codiceDipartimento;
+	public Integer getCodice() {
+		return codice;
 	}
-	public void setCodiceDipartimento(Integer codice) {
-		this.codiceDipartimento = codiceDipartimento;
+	public void setCodice(Integer codice) {
+		this.codice = codice;
 	}
-	public String getNomeDipartimento() {
-		return nomeDipartimento;
+	public String getNome() {
+		return nome;
 	}
-	public void setNomeDipartimento(String nomeDipartimento) {
-		this.nomeDipartimento = nomeDipartimento;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	public Long getAteneoId() {
 		return ateneoId;

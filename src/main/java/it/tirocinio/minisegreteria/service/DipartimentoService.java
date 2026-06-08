@@ -40,7 +40,7 @@ public class DipartimentoService {
    
 	
 	public Dipartimento createDipartimento(Dipartimento nuovoDipartimento) {
-	   boolean esistedip = dipartimentoRepository.existsByNomeDipartimento(nuovoDipartimento.getNome());
+	   boolean esistedip = dipartimentoRepository.existsByNome(nuovoDipartimento.getNome());
 	   if(esistedip) {
 		   throw new IllegalArgumentException("Questo dipartimento già esiste");
 	   }
@@ -54,7 +54,7 @@ public class DipartimentoService {
    
    
 	public Map<String, Object> getAteneoById(Long ateneoId) {
-	    List<Dipartimento> dipartimenti = dipartimentoRepository.findByAteneoId(ateneoId);	   
+	    List<Dipartimento> dipartimenti = dipartimentoRepository.findByAteneoAteneoId(ateneoId);	   
 	    if (dipartimenti.isEmpty()) {
 	        throw new NoSuchElementException("Nessun dipartimento trovato per l'Ateneo con ID " + ateneoId);
 	    }

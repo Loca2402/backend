@@ -14,7 +14,7 @@ public class Ateneo {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long ateneoId;
 
-    @Column(unique=true)
+    @Column(name = "codice", unique=true)
     private Integer codice;
 
     @Column
@@ -43,7 +43,7 @@ public class Ateneo {
         return ateneoId;
     }
 
-    public void setId(Long ateneoId) {
+    public void setAteneoId(Long ateneoId) {
         this.ateneoId = ateneoId;
     }
 
