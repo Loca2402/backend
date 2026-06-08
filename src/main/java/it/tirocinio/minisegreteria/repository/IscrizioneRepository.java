@@ -12,5 +12,5 @@ public interface IscrizioneRepository extends JpaRepository<Iscrizione, Long> {
     
     List<Iscrizione> findByCorsoIdCorso(Long idCorso);
 
-    boolean existsByStudenteIdStudenteAndCorsoIdCorso(Long idStudente, Long idCorso);
+    boolean existsByStudenteIdAndCorsoIdCorso(Long idStudente, Long idCorso);
     }

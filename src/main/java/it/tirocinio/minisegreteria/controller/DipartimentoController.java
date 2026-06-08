@@ -20,6 +20,7 @@ import it.tirocinio.minisegreteria.model.Studente;
 import it.tirocinio.minisegreteria.response.ApiResponse;
 import it.tirocinio.minisegreteria.service.AteneoService;
 import it.tirocinio.minisegreteria.service.DipartimentoService;
+import it.tirocinio.minisegreteria.dto.DipartimentoMapper;
 
 @RestController
 @RequestMapping("/api/dipartimenti")
@@ -44,13 +45,7 @@ public class DipartimentoController {
 	@PostMapping("")
 	public ResponseEntity<ApiResponse<DipartimentoDTO>> creaDipartimento(@RequestBody Dipartimento dipartimento ) {
 		Dipartimento nuovoDipartimento = dipartimentoService.createDipartimento(dipartimento);
-		DipartimentoDTO dto = new DipartimentoDTO(
-				nuovoDipartimento.getId(),
-				nuovoDipartimento.getCodice(),
-				nuovoDipartimento.getNome(),
-				nuovoDipartimento.getAteneo().getAteneoId(),
-				nuovoDipartimento.getAteneo().getNome()
-				);
+		DipartimentoDTO dto = DipartimentoMapper.toDTO(nuovoDipartimento);
 		ApiResponse<DipartimentoDTO> response = new ApiResponse<>(dto);
 		response.setId(nuovoDipartimento.getId());
 		return new ResponseEntity<>(response, HttpStatus.CREATED);

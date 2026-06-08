@@ -31,7 +31,7 @@ public class IscrizioneController {
 
 	@PostMapping("")
 	public ResponseEntity<ApiResponse<Iscrizione>> IscriviStudenteACorso(@RequestBody Iscrizione iscrizione ) {
-		Long idStudente = iscrizione.getStudente().getIdStudente();
+		Long idStudente = iscrizione.getStudente().getId();
 		Long idCorso = iscrizione.getCorso().getIdCorso();
 		
 		Iscrizione nuovaIscrizione = iscrizioneService.creaIscrizione(idStudente, idCorso, iscrizione);

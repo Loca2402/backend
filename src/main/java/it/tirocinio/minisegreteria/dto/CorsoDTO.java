@@ -14,8 +14,8 @@ public class CorsoDTO {
     
     private String nomeDipartimento;
 	private Integer codiceDipartimento;
-//    private Long ateneoId;
-//    private String nomeAteneo;
+    private Integer codiceAteneo;
+    private String nomeAteneo;
     
 
     public Integer getCodiceDipartimento() {
@@ -26,13 +26,11 @@ public class CorsoDTO {
 		this.codiceDipartimento = codiceDipartimento;
 	}
 
-//	public Long getAteneoId() {
-//		return ateneoId;
-//	}
-//
-//	public void setAteneoId(Long ateneoId) {
-//		this.ateneoId = ateneoId;
-//	}
+	public Integer getCodiceAteneo() { return codiceAteneo; }
+    public void setCodiceAteneo(Integer codiceAteneo) { this.codiceAteneo = codiceAteneo; }
+
+    public String getNomeAteneo() { return nomeAteneo; }
+    public void setNomeAteneo(String nomeAteneo) { this.nomeAteneo = nomeAteneo; }
 	
 	
 
@@ -44,18 +42,11 @@ public class CorsoDTO {
 		this.nomeDipartimento = nomeDipartimento;
 	}
 
-//	public String getNomeAteneo() {
-//		return nomeAteneo;
-//	}
-//
-//	public void setNomeAteneo(String nomeAteneo) {
-//		this.nomeAteneo = nomeAteneo;
-//	}
 
 	public CorsoDTO() {}
 
     public CorsoDTO(Long idCorso, Integer codice, String nome, String annoAccademico, String tipoTitolo,
-    					Integer codiceDipartimento, String nomeDipartimento) {
+    					Integer codiceDipartimento, String nomeDipartimento, Integer codiceAteneo, String nomeAteneo) {
         this.idCorso = idCorso;
         this.codice = codice;
         this.nome = nome;
@@ -63,6 +54,8 @@ public class CorsoDTO {
         this.tipoTitolo = tipoTitolo;
         this.codiceDipartimento = codiceDipartimento;
         this.nomeDipartimento = nomeDipartimento;
+        this.codiceAteneo = codiceAteneo;
+        this.nomeAteneo = nomeAteneo;
         }
 
     public Long getIdCorso() { return idCorso; }

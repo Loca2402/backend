@@ -24,7 +24,7 @@ public class Recapito {
 	private String email;
 	
 	@Column(unique=true, nullable=false)
-	private Integer telefono;
+	private String telefono;
 	
 	@Column(unique=true, nullable=false)
 	private String indirizzo;
@@ -36,7 +36,7 @@ public class Recapito {
 	private Integer cap;
 	
 	@OneToOne
-	@JoinColumn(name="studente_id")
+	@JoinColumn(name="studente_id", referencedColumnName = "id")
 	@MapsId
 	@JsonIgnoreProperties("recapito")
 	private Studente studente;
@@ -57,11 +57,11 @@ public class Recapito {
 		this.email = email;
 	}
 
-	public Integer getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(Integer telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 
@@ -97,7 +97,7 @@ public class Recapito {
 		this.studente = studente;
 	}
 
-	public Recapito(Long id, String email, Integer telefono, String indirizzo, String comune, Integer cap,
+	public Recapito(Long id, String email, String telefono, String indirizzo, String comune, Integer cap,
 			Studente studente) {
 		super();
 		this.id = id;

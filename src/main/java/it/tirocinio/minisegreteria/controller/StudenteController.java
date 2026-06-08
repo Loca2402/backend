@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.tirocinio.minisegreteria.dto.StudenteDTO;
+import it.tirocinio.minisegreteria.dto.StudenteMapper;
 import it.tirocinio.minisegreteria.model.Iscrizione;
 import it.tirocinio.minisegreteria.model.Recapito;
 import it.tirocinio.minisegreteria.model.Studente;
@@ -44,20 +45,24 @@ public class StudenteController {
 	}
 	
 	@PostMapping("") 
-	public ResponseEntity<ApiResponse<Studente>> creaStudente(@RequestBody Studente studente) {
-		Studente nuovoStudente = studenteService.createStudente(studente);
+	public ResponseEntity<ApiResponse<Studente>> creaStudente(@RequestBody StudenteDTO studenteDTO) {
+		Studente nuovoStudente = studenteService.createStudente(studenteDTO);
 		ApiResponse<Studente> response = new ApiResponse<>(nuovoStudente);
-		response.setId(nuovoStudente.getIdStudente());
+		response.setId(nuovoStudente.getId());
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/{idStudente}")
-	public ResponseEntity<ApiResponse<Studente>> dettaglioStudente(@PathVariable Long idStudente) {
-		Studente studente = studenteService.cercaStudente(idStudente);
-		ApiResponse<Studente> response = new ApiResponse<>(studente);
-        response.setId(idStudente);
-        return ResponseEntity.ok(response);
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<ApiResponse<StudenteDTO>> dettaglioStudente(@PathVariable Long id) {
+	    // 1. Cerchi l'entità
+	    Studente studente = studenteService.cercaStudente(id);
+	    
+	    // 2. Mappi direttamente dentro l'ApiResponse in un colpo solo
+	    ApiResponse<StudenteDTO> response = new ApiResponse<>(StudenteMapper.toDTO(studente));
+	    response.setId(id);
+	    
+	    return ResponseEntity.ok(response);
+	}
 	
 	
 	@GetMapping("/search")

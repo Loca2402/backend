@@ -28,11 +28,12 @@ public class StudenteService {
 		return listastudenti.stream().map(StudenteMapper::toDTO).toList();
 	}
 	
-	public Studente createStudente(Studente nuovoStudente) {
-		boolean esisteStudente = studenteRepository.existsByMatricola(nuovoStudente.getMatricola());
+	public Studente createStudente(StudenteDTO studenteDTO) {
+		boolean esisteStudente = studenteRepository.existsByMatricola(studenteDTO.getMatricola());
 		if (esisteStudente) {
-			throw new IllegalArgumentException("Lo studente con matricola "+nuovoStudente.getMatricola()+" già è inserito");
+			throw new IllegalArgumentException("Lo studente con matricola "+studenteDTO.getMatricola()+" già è inserito");
 		}
+		Studente nuovoStudente = StudenteMapper.toEntity(studenteDTO);
 		return studenteRepository.save(nuovoStudente);
 	}
 	

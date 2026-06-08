@@ -6,14 +6,16 @@ public class DipartimentoDTO {
 	private String nome;
 	private Long ateneoId;
 	private String nomeAteneo;
+	private Integer codiceAteneo;
 
-	public DipartimentoDTO(Long dipartimentoId, Integer codice, String nome, Long ateneoId, String nomeAteneo) {
+	public DipartimentoDTO(Long dipartimentoId, Integer codice, String nome, Long ateneoId, String nomeAteneo, Integer codiceAteneo) {
 		super();
 		this.dipartimentoId = dipartimentoId;
 		this.codice = codice;
 		this.nome = nome;
 		this.ateneoId = ateneoId;
 		this.nomeAteneo = nomeAteneo;
+		this.codiceAteneo = codiceAteneo;
 	}
 	public DipartimentoDTO() {
 		super();
@@ -47,7 +49,12 @@ public class DipartimentoDTO {
 	}
 	public void setNomeAteneo(String nomeAteneo) {
 		this.nomeAteneo = nomeAteneo;
+	}
+	public void setCodiceAteneo(Integer codiceAteneo) {
+		this.codiceAteneo = codiceAteneo;
 	}	
+	
+	
 	
 	
 }

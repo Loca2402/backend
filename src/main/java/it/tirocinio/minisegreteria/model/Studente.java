@@ -1,5 +1,6 @@
 package it.tirocinio.minisegreteria.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -7,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,13 +26,13 @@ public class Studente {
 	private Long id;
 	
 	@Column(unique=true)
-	private Integer matricola;
+	private String matricola;
 	@Column(nullable=false)
 	private String nome;
 	@Column(nullable=false)
 	private String cognome;
 	@Column(nullable=false)
-	private String dataNascita;
+	private LocalDate dataNascita;
 	@Column
 	private String codiceFiscale;
 	@Column
@@ -41,7 +43,7 @@ public class Studente {
 //	@JsonIgnoreProperties("studenti")
 //	private Corso corso;
 	
-	@OneToOne(mappedBy="studente", cascade=CascadeType.ALL)
+	@OneToOne(mappedBy="studente", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JsonIgnoreProperties("studente")
 	private Recapito recapito;
 	
@@ -53,16 +55,16 @@ public class Studente {
 	public Studente() {
 		super();
 	}
-	public Long getIdStudente() {
+	public Long getId() {
 		return id;
 	}
-	public void setIdStudente(Long idStudente) {
-		this.id = idStudente;
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public Integer getMatricola() {
+	public String getMatricola() {
 		return matricola;
 	}
-	public void setMatricola(Integer matricola) {
+	public void setMatricola(String matricola) {
 		this.matricola = matricola;
 	}
 	public String getNome() {
@@ -77,10 +79,10 @@ public class Studente {
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
 	}
-	public String getDataNascita() {
+	public LocalDate getDataNascita() {
 		return dataNascita;
 	}
-	public void setDataNascita(String dataNascita) {
+	public void setDataNascita(LocalDate dataNascita) {
 		this.dataNascita = dataNascita;
 	}
 	public String getCodiceFiscale() {
@@ -114,8 +116,8 @@ public class Studente {
 	public void setIscrizione(List<Iscrizione> iscrizione) {
 		this.iscrizione = iscrizione;
 	}
-	public Studente(Long id, Integer matricola, String nome, String cognome, String dataNascita, String codiceFiscale,
-			Character sesso) { //Corso corso) {
+	public Studente(Long id, String matricola, String nome, String cognome, LocalDate dataNascita, String codiceFiscale,
+			Character sesso) { 
 		super();
 		this.id = id;
 		this.matricola = matricola;
@@ -124,6 +126,5 @@ public class Studente {
 		this.dataNascita = dataNascita;
 		this.codiceFiscale = codiceFiscale;
 		this.sesso = sesso;
-		//this.corso = corso;
 	}
 }

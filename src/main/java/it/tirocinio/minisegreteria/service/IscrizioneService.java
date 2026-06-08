@@ -33,7 +33,7 @@ public class IscrizioneService {
 		Corso corso = corsoRepository.findById(idCorso).
 				orElseThrow(()-> new NoSuchElementException("Il corso con id "+idCorso+" non è stato trovato"));
 		
-		boolean esisteIscrizione = iscrizioneRepository.existsByStudenteIdStudenteAndCorsoIdCorso(idStudente, idCorso);
+		boolean esisteIscrizione = iscrizioneRepository.existsByStudenteIdAndCorsoIdCorso(idStudente, idCorso);
 		if (esisteIscrizione) {
 			throw new IllegalArgumentException("Lo studente già è inserito all'interno del corso.");
 		}

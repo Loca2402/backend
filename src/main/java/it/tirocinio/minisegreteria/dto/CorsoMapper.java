@@ -10,7 +10,11 @@ public class CorsoMapper {
     public static CorsoDTO toDTO(Corso corso) {
         if (corso == null) {
             return null;
-        }
+        } 
+        
+        Dipartimento dip = corso.getDipartimento();
+        
+        Ateneo ateneo = (dip != null )?dip.getAteneo() : null;
         
         return new CorsoDTO(
                 corso.getIdCorso(),
@@ -18,10 +22,10 @@ public class CorsoMapper {
                 corso.getNome(),
                 corso.getAnnoAccademico(),
                 corso.getTipoTitolo(),
-                corso.getDipartimento().getCodice(),
-                corso.getDipartimento().getNome()
-//                corso.getDipartimento().getAteneo().getAteneoId(),
-//                corso.getDipartimento().getAteneo().getNome()
+                (dip != null ) ? dip.getCodice() : null,
+                	(dip != null ) ? dip.getNome() : null,
+                	(ateneo != null) ? ateneo.getCodice() : null,
+                	(ateneo != null) ? ateneo.getNome() : null
                 );
                 
         }
