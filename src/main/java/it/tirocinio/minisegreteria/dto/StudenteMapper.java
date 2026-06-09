@@ -1,6 +1,7 @@
 package it.tirocinio.minisegreteria.dto;
 
 import it.tirocinio.minisegreteria.dto.StudenteDTO;
+import it.tirocinio.minisegreteria.model.Recapito;
 import it.tirocinio.minisegreteria.model.Studente;
 
 public class StudenteMapper {
@@ -42,7 +43,9 @@ public class StudenteMapper {
         entity.setSesso(dto.getSesso());
         
         if (dto.getRecapito() != null) {
-            entity.setRecapito(RecapitoMapper.toEntity(dto.getRecapito()));
+        	Recapito recapito = RecapitoMapper.toEntity(dto.getRecapito());
+        	recapito.setStudente(entity);
+        	entity.setRecapito(recapito);
         }
         
         return entity;

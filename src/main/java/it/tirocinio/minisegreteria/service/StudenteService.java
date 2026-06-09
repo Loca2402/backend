@@ -29,11 +29,16 @@ public class StudenteService {
 	}
 	
 	public Studente createStudente(StudenteDTO studenteDTO) {
+		System.out.println("recapito ricevuto " + studenteDTO.getRecapito());
 		boolean esisteStudente = studenteRepository.existsByMatricola(studenteDTO.getMatricola());
 		if (esisteStudente) {
 			throw new IllegalArgumentException("Lo studente con matricola "+studenteDTO.getMatricola()+" già è inserito");
 		}
 		Studente nuovoStudente = StudenteMapper.toEntity(studenteDTO);
+		
+		if (nuovoStudente.getRecapito() != null) {
+	        nuovoStudente.getRecapito().setStudente(nuovoStudente);
+	    }
 		return studenteRepository.save(nuovoStudente);
 	}
 	

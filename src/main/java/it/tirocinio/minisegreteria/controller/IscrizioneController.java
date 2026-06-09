@@ -2,6 +2,7 @@ package it.tirocinio.minisegreteria.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import it.tirocinio.minisegreteria.service.IscrizioneService;
 
 @RestController
 @RequestMapping("api/iscrizioni")
+@CrossOrigin(origins = "http://localhost:4200")
 public class IscrizioneController {
 	private IscrizioneService iscrizioneService;
 	
@@ -30,14 +32,15 @@ public class IscrizioneController {
 
 
 	@PostMapping("")
-	public ResponseEntity<ApiResponse<Iscrizione>> IscriviStudenteACorso(@RequestBody Iscrizione iscrizione ) {
+	public ResponseEntity<ApiResponse<Iscrizione>> iscriviStudenteACorso(@RequestBody Iscrizione iscrizione)
+	{
 		Long idStudente = iscrizione.getStudente().getId();
-		Long idCorso = iscrizione.getCorso().getIdCorso();
-		
-		Iscrizione nuovaIscrizione = iscrizioneService.creaIscrizione(idStudente, idCorso, iscrizione);
-		ApiResponse<Iscrizione> response = new ApiResponse<>(nuovaIscrizione);
-		response.setId(nuovaIscrizione.getId());
-		return new ResponseEntity<>(response, HttpStatus.CREATED);
+	    Long idCorso = iscrizione.getCorso().getIdCorso();
+	    
+	    Iscrizione nuovaIscrizione = iscrizioneService.creaIscrizione(idStudente, idCorso, iscrizione);
+	    ApiResponse<Iscrizione> response = new ApiResponse<>(nuovaIscrizione);
+	    response.setId(nuovaIscrizione.getId());
+	    return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 	
 	@PatchMapping("/{id}/stato")

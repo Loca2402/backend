@@ -23,6 +23,7 @@ public class RecapitoService {
 			()-> new NoSuchElementException("studente con id "+id+" non è stato trovato."));
 		
 		nuovoRecapito.setStudente(studente);
+		nuovoRecapito.setId(studente.getId());
 		
 		return recapitoRepository.save(nuovoRecapito);
 	}

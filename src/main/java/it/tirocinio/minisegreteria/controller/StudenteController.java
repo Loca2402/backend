@@ -70,13 +70,10 @@ public class StudenteController {
 		@RequestParam(value="id", required=false) Long id,
 		@RequestParam(value="matricola", required=false) Integer matricola) {
 	    List<Studente> studenti = studenteService.ricercaStudente(id, matricola);
-	    if(studenti.isEmpty()) {
-	    	throw new NoSuchElementException("nessuno studente trovato con i filtri specificati. ");
-	    }
+	   
 	    ApiResponse<List<Studente>> response = new ApiResponse<>(studenti);
 	    return ResponseEntity.ok(response);
 	}
-	
 	@GetMapping("/{idStudente}/iscrizioni")
 	public ResponseEntity<ApiResponse<List<Iscrizione>>> studentiIscrittiACorso(@PathVariable Long idStudente) {
 		List<Iscrizione> iscrizioni = iscrizioneService.trovaIscrizioneStudente(idStudente);

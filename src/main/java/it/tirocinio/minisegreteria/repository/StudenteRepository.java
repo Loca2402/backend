@@ -11,9 +11,10 @@ import it.tirocinio.minisegreteria.model.Studente;
 public interface StudenteRepository extends JpaRepository<Studente, Long>{
 	boolean existsByMatricola(String matricola);
 	
-	@Query(value="SELECT * FROM studenti " + "WHERE(:id IS NULL OR id=:id) "+
-											"AND(:matricola IS NULL OR matricola=:matricola)",
-			nativeQuery=true)
+	@Query(value = "SELECT * FROM studenti WHERE " +
+            "(:id IS NULL OR id = :id) AND " +
+            "(:matricola IS NULL OR matricola = :matricola\\:\\:text)", // 🌟 Cast esplicito per PostgreSQL
+    nativeQuery = true)
 	List<Studente> cercaStudentiConFiltri(
 					@Param("id")Long id,
 					@Param("matricola") Integer matricola
