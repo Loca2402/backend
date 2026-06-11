@@ -33,10 +33,10 @@ public class IscrizioneService {
 		Corso corso = corsoRepository.findById(idCorso).
 				orElseThrow(()-> new NoSuchElementException("Il corso con id "+idCorso+" non è stato trovato"));
 		
-		boolean esisteIscrizione = iscrizioneRepository.existsByStudenteIdAndCorsoIdCorso(idStudente, idCorso);
-		if (esisteIscrizione) {
-			throw new IllegalArgumentException("Lo studente già è inserito all'interno del corso.");
-		}
+		boolean studenteIscritto = iscrizioneRepository.existsByStudenteId(idStudente);
+	    if (studenteIscritto) {
+	        throw new IllegalArgumentException("Impossibile procedere: lo studente è già iscritto a un corso universitario e non può frequentarne più di uno.");
+	    }
 		
 		nuovaIscrizione.setStudente(studente);
 		nuovaIscrizione.setCorso(corso);
@@ -44,12 +44,8 @@ public class IscrizioneService {
 		return iscrizioneRepository.save(nuovaIscrizione);
 	}
 	
-	public List<Iscrizione> trovaIscrizioneStudente(Long idStudente) {
-		List<Iscrizione> iscrizioneStudente = iscrizioneRepository.findByStudenteId(idStudente);
-			if(iscrizioneStudente.isEmpty()) {
-				throw new NoSuchElementException("Nessuna iscrizione trovata per lo studente con id "+idStudente);
-		}
-			return iscrizioneStudente;
+	public List trovaIscrizioneStudente(Long idStudente) {
+		return iscrizioneRepository.findByStudenteId(idStudente);
 	}
 	
 	public Iscrizione aggiornaStato(Long id, String nuovoStato) {

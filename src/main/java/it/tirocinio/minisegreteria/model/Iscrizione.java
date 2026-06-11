@@ -15,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,12 +26,12 @@ public class Iscrizione {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne
-	@JoinColumn(name="studente_id",nullable=false)
-	@JsonIgnoreProperties("iscrizioni")
+	@OneToOne
+	@JoinColumn(name = "studente_id", nullable = false, unique = true) 
+	@JsonIgnoreProperties("iscrizione")
 	private Studente studente;
 	
-	@JsonIgnoreProperties("iscrizioni")
+	@JsonIgnoreProperties("iscrizione")
 	@ManyToOne
     @JoinColumn(name = "corso_id")
     private Corso corso;

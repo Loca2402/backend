@@ -13,7 +13,7 @@ public interface StudenteRepository extends JpaRepository<Studente, Long>{
 	
 	@Query(value = "SELECT * FROM studenti WHERE " +
             "(:id IS NULL OR id = :id) AND " +
-            "(:matricola IS NULL OR matricola = :matricola\\:\\:text)", // 🌟 Cast esplicito per PostgreSQL
+            "(:matricola IS NULL OR matricola = :matricola\\:\\:text)", 
     nativeQuery = true)
 	List<Studente> cercaStudentiConFiltri(
 					@Param("id")Long id,

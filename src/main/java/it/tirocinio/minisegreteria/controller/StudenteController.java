@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.tirocinio.minisegreteria.dto.StudenteDTO;
 import it.tirocinio.minisegreteria.dto.StudenteMapper;
+import it.tirocinio.minisegreteria.model.Corso;
 import it.tirocinio.minisegreteria.model.Iscrizione;
 import it.tirocinio.minisegreteria.model.Recapito;
 import it.tirocinio.minisegreteria.model.Studente;
@@ -79,6 +81,15 @@ public class StudenteController {
 		List<Iscrizione> iscrizioni = iscrizioneService.trovaIscrizioneStudente(idStudente);
 		ApiResponse<List<Iscrizione>> response = new ApiResponse<>(iscrizioni);
 		return ResponseEntity.ok(response);
+	}
+	
+	@DeleteMapping("")
+	public ResponseEntity<ApiResponse<Studente>> eliminaCorso(@PathVariable Long id) {
+	    Studente cancStudente = studenteService.cercaStudente(id);
+	    studenteService.cancellaStudente(id);
+	    ApiResponse<Studente> response = new ApiResponse<>(cancStudente);
+	    response.setId(cancStudente.getId());
+	    return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 }

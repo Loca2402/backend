@@ -6,6 +6,7 @@ import it.tirocinio.minisegreteria.dto.DipartimentoMapper;
 import it.tirocinio.minisegreteria.model.Ateneo;
 import it.tirocinio.minisegreteria.model.Dipartimento;
 import it.tirocinio.minisegreteria.repository.AteneoRepository;
+import it.tirocinio.minisegreteria.repository.CorsoRepository;
 import it.tirocinio.minisegreteria.repository.DipartimentoRepository;
 
 import java.util.LinkedHashMap;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 public class DipartimentoService {
    private DipartimentoRepository dipartimentoRepository;
    private AteneoRepository ateneoRepository;
+   private CorsoRepository corsoRepository;
 
    public DipartimentoService(DipartimentoRepository dipartimentoRepository, AteneoRepository ateneoRepository) {
 	this.dipartimentoRepository = dipartimentoRepository;
@@ -74,6 +76,16 @@ public class DipartimentoService {
 	     return risultato;
 	}
    
+	public void cancellaDipartimento(Long id) {
+		if(!dipartimentoRepository.existsById(id)) {
+			throw new NoSuchElementException("Dipartimento non trovato.");
+		}
+		boolean corsiSi = corsoRepository.existsByDipartimentoId(id);
+		if(corsiSi) {
+			throw new IllegalArgumentException("impossibile eliminare il dipartimento, ci sono corsi associati ad esso.");
+		}
+		 dipartimentoRepository.deleteById(id);
+	}
 }
    
  

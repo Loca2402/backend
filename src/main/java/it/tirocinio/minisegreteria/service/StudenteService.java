@@ -52,4 +52,11 @@ public class StudenteService {
 	public List<Studente> ricercaStudente(Long id, Integer matricola) {
 		return studenteRepository.cercaStudentiConFiltri(id, matricola);
 	}
+	
+	public void cancellaStudente(Long id) {
+		if(!studenteRepository.existsById(id)) {
+			throw new NoSuchElementException("Studente non trovato.");
+		}
+		 studenteRepository.deleteById(id);
+	}
 }

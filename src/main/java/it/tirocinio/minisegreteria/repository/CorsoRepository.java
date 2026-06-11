@@ -22,4 +22,6 @@ List<Corso> cercaCorsiConFiltri(
 		@Param("tipoTitolo") String tipoTitolo,
 		@Param("annoAccademico") String annoAccademico
 		);
+	
+	boolean existsByDipartimentoId(Long id);
 }

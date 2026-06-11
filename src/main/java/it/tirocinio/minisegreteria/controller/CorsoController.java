@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.tirocinio.minisegreteria.dto.CorsoDTO;
 import it.tirocinio.minisegreteria.dto.CorsoMapper;
+import it.tirocinio.minisegreteria.model.Ateneo;
 import it.tirocinio.minisegreteria.model.Corso;
 import it.tirocinio.minisegreteria.model.Dipartimento;
 import it.tirocinio.minisegreteria.model.Iscrizione;
@@ -74,10 +76,19 @@ public class CorsoController {
 	}
 	
 	@GetMapping("/{idCorso}/iscritti")
-	public ResponseEntity<ApiResponse<Corso>> corsiConIscrizioni(@PathVariable Long idCorso) {
-		Corso corso = corsoService.studentiAlCorso(idCorso);
-		ApiResponse<Corso> response = new ApiResponse<>(corso);
+	public ResponseEntity<ApiResponse<List<Iscrizione>>> corsiConIscrizioni(@PathVariable Long idCorso) {
+		List<Iscrizione> iscritti = corsoService.studentiAlCorso(idCorso);
+		ApiResponse<List<Iscrizione>> response = new ApiResponse<>(iscritti);
 		response.setId(idCorso);
 		return ResponseEntity.ok(response);
+	}
+	
+	@DeleteMapping("")
+	public ResponseEntity<ApiResponse<Corso>> eliminaCorso(@PathVariable Long idCorso) {
+	    Corso cancCorso = corsoService.cercaCorso(idCorso);
+	    corsoService.cancellaCorso(idCorso);
+	    ApiResponse<Corso> response = new ApiResponse<>(cancCorso);
+	    response.setId(cancCorso.getIdCorso());
+	    return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }

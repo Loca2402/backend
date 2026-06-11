@@ -8,9 +8,13 @@ import it.tirocinio.minisegreteria.model.Iscrizione;
 
 public interface IscrizioneRepository extends JpaRepository<Iscrizione, Long> {
 
+	boolean existsByStudenteId(Long idStudente);
+	
     List<Iscrizione> findByStudenteId(Long idStudente);
     
     List<Iscrizione> findByCorsoIdCorso(Long idCorso);
 
     boolean existsByStudenteIdAndCorsoIdCorso(Long idStudente, Long idCorso);
+    
+    boolean existsByCorsoIdCorso(Long idCorso);
     }

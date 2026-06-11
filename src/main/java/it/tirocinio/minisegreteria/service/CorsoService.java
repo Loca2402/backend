@@ -2,6 +2,8 @@ package it.tirocinio.minisegreteria.service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.tirocinio.minisegreteria.dto.CorsoDTO;
@@ -12,21 +14,22 @@ import it.tirocinio.minisegreteria.model.Iscrizione;
 import it.tirocinio.minisegreteria.repository.CorsoRepository;
 import it.tirocinio.minisegreteria.repository.DipartimentoRepository;
 import it.tirocinio.minisegreteria.repository.IscrizioneRepository;
+import it.tirocinio.minisegreteria.repository.StudenteRepository;
 
 @Service
 public class CorsoService {
 	private final CorsoRepository corsoRepository;
 	private final DipartimentoRepository dipartimentoRepository;
-	private final IscrizioneRepository iscrizioneRepository; // 👈 Ora verrà inizializzato correttamente
+	private final IscrizioneRepository iscrizioneRepository; 
 	
-	// 🛠️ COSTRUTTORE AGGIORNATO CON TUTTE E 3 LE REPOSITORY REQUIRED
+	
 	public CorsoService(CorsoRepository corsoRepository, 
 			DipartimentoRepository dipartimentoRepository, 
 			IscrizioneRepository iscrizioneRepository) {
 		super();
 		this.corsoRepository = corsoRepository;
 		this.dipartimentoRepository = dipartimentoRepository;
-		this.iscrizioneRepository = iscrizioneRepository; // 👈 Fondamentale!
+		this.iscrizioneRepository = iscrizioneRepository;
 	}
 	
 	public List<CorsoDTO> trovaTuttiCorsi(){
@@ -57,12 +60,23 @@ public class CorsoService {
 	            .toList();
 	}
 	
-	public Corso studentiAlCorso(Long idCorso) {
-		List<Iscrizione> iscrizioneCorso = iscrizioneRepository.findByCorsoIdCorso(idCorso);
-		if(iscrizioneCorso.isEmpty()) {
-			throw new NoSuchElementException("Nessuno studente è iscritto al corso con id "+idCorso);
-		}
-		Corso corso = iscrizioneCorso.get(0).getCorso();
-		return corso;
+	public List<Iscrizione> studentiAlCorso(Long idCorso) {
+	    if (!corsoRepository.existsById(idCorso)) {
+	        throw new NoSuchElementException("Il corso con id " + idCorso + " non esiste.");
+	    }
+	    return iscrizioneRepository.findByCorsoIdCorso(idCorso);
 	}
+	
+	public void cancellaCorso(Long idCorso) {
+		if(!corsoRepository.existsById(idCorso)) {
+			throw new NoSuchElementException("Corso non trovato.");
+		}
+		boolean studentiSi = iscrizioneRepository.existsByCorsoIdCorso(idCorso);
+		if(studentiSi) {
+			throw new IllegalArgumentException("impossibile eliminare il corso, ci sono studenti iscritti.");
+		}
+		 corsoRepository.deleteById(idCorso);
+	}
+	
+	
 }

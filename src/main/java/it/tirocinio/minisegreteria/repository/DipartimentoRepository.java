@@ -12,4 +12,6 @@ public interface DipartimentoRepository extends JpaRepository<Dipartimento,Long>
 	boolean existsByNome(String nome);
 	List<Dipartimento> findByAteneoAteneoId(Long ateneoId);
 	Optional<Dipartimento> findByCodice(Integer codice);
+	
+	boolean existsByAteneoAteneoId(Long ateneoId);
 }

@@ -47,9 +47,9 @@ public class Studente {
 	@JsonIgnoreProperties("studente")
 	private Recapito recapito;
 	
-	@OneToMany(mappedBy="studente", cascade=CascadeType.ALL)
-	@JsonIgnoreProperties("studente")
-	private List<Iscrizione> iscrizione;
+	@OneToOne(mappedBy = "studente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnoreProperties("studente") 
+	private Iscrizione iscrizione;
 	
 	
 	public Studente() {
@@ -110,10 +110,10 @@ public class Studente {
 	public void setRecapito(Recapito recapito) {
 		this.recapito = recapito;
 	}
-	public List<Iscrizione> getIscrizione() {
+	public Iscrizione getIscrizione() {
 		return iscrizione;
 	}
-	public void setIscrizione(List<Iscrizione> iscrizione) {
+	public void setIscrizione(Iscrizione iscrizione) {
 		this.iscrizione = iscrizione;
 	}
 	public Studente(Long id, String matricola, String nome, String cognome, LocalDate dataNascita, String codiceFiscale,

@@ -36,9 +36,8 @@ public class Corso {
 	
 	@OneToMany(mappedBy="corso", cascade=CascadeType.ALL)
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonIgnoreProperties("corso")
-	private List<Iscrizione> iscrizioni;
-	
+	@JsonIgnoreProperties("corso") 
+	private List<Iscrizione> iscrizione;
 	public Corso(Long idCorso, Integer codice, String nome, String anno_accademico, String tipo_titolo,
 			Dipartimento dipartimento) {
 		super();
@@ -105,10 +104,10 @@ public class Corso {
 //	}
 
 	public List<Iscrizione> getIscrizione() {
-		return iscrizioni;
+		return iscrizione;
 	}
 
 	public void setIscrizione(List<Iscrizione> iscrizione) {
-		this.iscrizioni = iscrizioni;
+		this.iscrizione = iscrizione;
 	}
 }
