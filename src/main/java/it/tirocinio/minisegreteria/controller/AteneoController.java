@@ -58,7 +58,7 @@ public class AteneoController {
 	}
 	
 	
-	@DeleteMapping("")
+	@DeleteMapping("/{ateneoId}")
 	public ResponseEntity<ApiResponse<Ateneo>> eliminaAteneo(@PathVariable Long ateneoId) {
 	    Ateneo cancAteneo = ateneoService.cercaAteneo(ateneoId);
 	    ateneoService.cancellaAteneo(ateneoId);

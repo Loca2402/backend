@@ -14,12 +14,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DipartimentoService {
    private DipartimentoRepository dipartimentoRepository;
    private AteneoRepository ateneoRepository;
+   
+   @Autowired
    private CorsoRepository corsoRepository;
 
    public DipartimentoService(DipartimentoRepository dipartimentoRepository, AteneoRepository ateneoRepository) {

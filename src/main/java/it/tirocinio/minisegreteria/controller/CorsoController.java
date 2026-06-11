@@ -83,7 +83,7 @@ public class CorsoController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@DeleteMapping("")
+	@DeleteMapping("/{idCorso}")
 	public ResponseEntity<ApiResponse<Corso>> eliminaCorso(@PathVariable Long idCorso) {
 	    Corso cancCorso = corsoService.cercaCorso(idCorso);
 	    corsoService.cancellaCorso(idCorso);

@@ -21,6 +21,7 @@ import it.tirocinio.minisegreteria.dto.DipartimentoDTO;
 import it.tirocinio.minisegreteria.model.Corso;
 import it.tirocinio.minisegreteria.model.Dipartimento;
 import it.tirocinio.minisegreteria.model.Studente;
+import it.tirocinio.minisegreteria.repository.CorsoRepository;
 import it.tirocinio.minisegreteria.repository.DipartimentoRepository;
 import it.tirocinio.minisegreteria.response.ApiResponse;
 import it.tirocinio.minisegreteria.service.AteneoService;
@@ -35,6 +36,8 @@ public class DipartimentoController {
 	
 	@Autowired
 	private DipartimentoRepository dipartimentoRepository;
+	
+	
 
 
 	public DipartimentoController(DipartimentoService dipartimentoService) {
@@ -67,7 +70,7 @@ public class DipartimentoController {
 	    return ResponseEntity.ok(response);
 	}
 	
-	@DeleteMapping("")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<ApiResponse<Dipartimento>> eliminaCorso(@PathVariable Long id) {
 		Dipartimento cancDip = dipartimentoRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Dipartimento non trovato con ID: " + id));
